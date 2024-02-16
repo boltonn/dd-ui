@@ -1,0 +1,28 @@
+[project]
+name = "backend"
+description = "Backend for the project"
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiohttp",
+    "fastapi",
+    "fastapi-offline",
+    "gunicorn",
+    "loguru",
+    "orjson",
+    "pydantic>=2",
+    "pydantic-settings",
+    "pygments",
+    "python-multipart",
+    "uvicorn",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx", "black", "flake8", "isort"]
+
+# [tool.setuptools.package_data]
+# where = ["src"]
+
+[project.scripts]
+api = "backend.main:main"
