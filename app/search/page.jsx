@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Navbar from '@/components/navbar';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
+import { SearchBar } from '@/components/searchbar';
 
 
 export default function MainSearchPage() {
@@ -50,30 +51,15 @@ export default function MainSearchPage() {
     }
   }, []);
 
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      embed(e.target.value);
-    }
-  }
 
   return (
     <div className='flex flex-col items-center w-full mt-1'>
         <Navbar />
-        <Input 
-            id='search'
-            className='w-3/4 h-10 p-2 m-2 bg-purple-100 mt-3 max-w-3xl rounded-md 
-            border border-purple-200 px-3 py-2 text-sm ring-offset-white 
-            file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-purple-500 
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 
-            focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 
-            dark:border-purple-800 dark:bg-purple-950 dark:bg-opacity-40 dark:ring-offset-purple-950 
-            dark:placeholder:text-purple-400 dark:focus-visible:ring-purple-300'
-            placeholder='Search' 
-            onKeyDown={handleKeyDown}
-        />
-
+        <div className='w-3/4 max-w-3xl p-2 px-3 py-2 m-2 mt-3 '>
+          <SearchBar search={embed} />
+        </div>
         {ready !== null && (
-        <pre className="bg-black p-2 rounded">
+        <pre className="p-2 bg-black rounded">
             {
             (!ready || !result) ? 'Loading...' : JSON.stringify(result, null, 2)}
         </pre>

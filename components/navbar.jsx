@@ -45,7 +45,7 @@ export default function Navbar() {
             {navbarItems.map((item, index) => (
                 <Link
                     key={index}
-                    className={`hover:cursor-pointer hover:text-purple-300 flex flex-col items-center justify-center w-16 h-16 group ${pathname === item.href ? 'text-purple-500' : 'dark:text-gray-200'}`}
+                    className={`hover:cursor-pointer hover:text-violet-500 dark:hover:text-violet-300 flex flex-col items-center justify-center w-16 h-16 group ${pathname === item.href ? 'text-violet-700 ' : 'dark:text-gray-200'}`}
                     href={item.href}
                 >
                     <item.icon size={24} className="flex-none w-6 h-6 group-hover:cursor-pointer" />

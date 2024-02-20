@@ -2,23 +2,23 @@ import { env, pipeline } from '@xenova/transformers';
 
 
 // Specify a custom location for models in public folder
-env.localModelPath = "/models";
+// env.localModelPath = "/models";
 
 // // Disable the loading of remote models from the Hugging Face Hub:
-env.allowRemoteModels = false;
-env.allowLocalModels = true;
-env.useBrowserCache = false;
+env.allowRemoteModels = true;
+// env.allowLocalModels = true;
+// env.useBrowserCache = false;
 
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 // model should be directory in public/models (and in this case onnx folder is hardcoded)
 class PipelineSingleton {
     static task = 'feature-extraction';
-    static model = 'multilingual-e5-large-onnx';
+    static model = 'Xenova/multilingual-e5-large';
     static instance = null;
 
     static async getInstance(progress_callback = null) {
         if (this.instance === null) {
-            this.instance = pipeline(this.task, this.model, { progress_callback });
+            this.instance = pipeline(this.task, this.model, { progress_callback, quantized: false }, );
         }
         return this.instance;
     }
@@ -35,7 +35,7 @@ self.addEventListener('message', async (event) => {
     });
 
     // Actually perform the feature-extraction
-    let output = await embedder(event.data.text, { pooling: 'mean', normalize: false });
+    let output = await embedder(event.data.text, { pooling: 'mean', normalize: true });
     // console.log(output.tolist()[0].length);
 
     // Send the output back to the main thread
