@@ -11,7 +11,7 @@ env.useBrowserCache = false;
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 // model should be directory in public/models (and in this case onnx folder is hardcoded)
 class PipelineSingleton {
-    static model_id = 'clip-vit-base-patch32';
+    static model_id = 'clip-vit-base-patch16';
     static processor = null;
     static img_model = null;
 
@@ -46,8 +46,10 @@ self.addEventListener('message', async (event) => {
     // Actually perform the feature-extraction
     const image = await RawImage.fromURL(event.data.img);
     const img_inputs = await processor(image)
+    console.log(img_inputs);
 
-    const { image_embeds } = await img_model(img_inputs, { normalize: true });
+    const { image_embeds } = await img_model(img_inputs);
+    console.log(image_embeds[0]);
 
     // Send the output back to the main thread
     self.postMessage({
