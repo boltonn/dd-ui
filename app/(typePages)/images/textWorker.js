@@ -46,7 +46,7 @@ self.addEventListener('message', async (event) => {
     // console.log(text_model);
 
     // Actually perform the feature-extraction
-    const text_inputs = await tokenizer(event.data.text, { padding: true, truncation:true });
+    const text_inputs = await tokenizer(event.data, { padding: true, truncation:true });
     // console.log(text_inputs);
 
     const { text_embeds } = await text_model(text_inputs, { normalize: true });

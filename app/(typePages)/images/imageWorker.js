@@ -44,12 +44,10 @@ self.addEventListener('message', async (event) => {
     self.postMessage({ status: 'ready' });
 
     // Actually perform the feature-extraction
-    const image = await RawImage.fromURL(event.data.img);
+    console.log(event);
+    const image = await RawImage.fromURL(event.data);
     const img_inputs = await processor(image)
-    console.log(img_inputs);
-
     const { image_embeds } = await img_model(img_inputs);
-    console.log(image_embeds[0]);
 
     // Send the output back to the main thread
     self.postMessage({

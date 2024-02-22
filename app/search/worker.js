@@ -36,7 +36,7 @@ self.addEventListener('message', async (event) => {
     });
 
     // Actually perform the feature-extraction
-    let output = await embedder(event.data.text, { pooling: 'cls', normalize: true });
+    let output = await embedder(event.data.text, { pooling: 'avg', normalize: true });
     // console.log(output.tolist()[0].length);
 
     // Send the output back to the main thread

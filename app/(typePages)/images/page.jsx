@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from 'react'
-// import { Input } from '@/components/ui/input';
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
 import { SearchBar } from '@/components/searchbar';
 import ImageUploader from './ImageUploader';
 
@@ -10,18 +11,24 @@ export default function MainSearchPage() {
   // Keep track of the classification result and the model loading status.
   const [result, setResult] = useState(null);
   const [ready, setReady] = useState(null);
+  const [searchType, setSearchType] = useState('image');
 
   // Create a reference to the worker object.
   const worker = useRef(null);
 
   // We use the `useEffect` hook to set up the worker as soon as the `App` component is mounted.
   useEffect(() => {
-    if (!worker.current) {
-      // Create the worker if it does not yet exist.
+    // if (!worker.current) {
+    if (searchType === 'text') {
+      worker.current = new Worker(new URL('./textWorker.js', import.meta.url), {
+        type: 'module'
+      });
+    } else {
       worker.current = new Worker(new URL('./imageWorker.js', import.meta.url), {
         type: 'module'
       });
     }
+    // }
 
     // Create a callback function for messages from the worker thread.
     const onMessageReceived = (e) => {
@@ -43,17 +50,12 @@ export default function MainSearchPage() {
 
     // Define a cleanup function for when the component is unmounted.
     return () => worker.current.removeEventListener('message', onMessageReceived);
-  });
+  }, [searchType]);
 
-  // const embed = useCallback((text) => {
-  //   if (worker.current) {
-  //     worker.current.postMessage({ text });
-  //   }
-  // }, []);
-
-  const embed = useCallback((img) => {
+  // one function to embed where x can be text or image
+  const embed = useCallback((data) => {
     if (worker.current) {
-      worker.current.postMessage({ img });
+      worker.current.postMessage(data);
     }
   }, []);
 
@@ -61,14 +63,34 @@ export default function MainSearchPage() {
   return (
     <div className='flex flex-col items-center w-full mt-1'>
         <div className='w-3/4 max-w-3xl px-3 py-1 mt-3'>
-          {/* <SearchBar search={embed} /> */}
-          <ImageUploader search={embed}/>
-          
+          <div className='mt-3'>
+            {searchType === 'text' 
+              ? <SearchBar search={embed} />
+              : <ImageUploader search={embed} />
+            }
+          </div>          
+        </div>
+        <div className='flex justify-center w-full mt-3'>
+          <Label>Search by Text</Label>
+          <div className="inline-flex items-center mx-3 mb-2">
+            <div className="relative inline-block w-8 h-4 rounded-full cursor-pointer">
+              <input defaultChecked id="switch-1" type="checkbox"
+                className="absolute w-8 h-4 transition-colors duration-300 rounded-full appearance-none cursor-pointer peer bg-violet-gray-100 checked:bg-violet-500 peer-checked:border-violet-500 peer-checked:before:bg-violet-500" 
+                onClick={() => setSearchType(searchType === 'text' ? 'image' : 'text')}  
+              />
+              <label htmlFor="switch-1"
+                className="before:content[''] absolute top-2/4 -left-1 h-5 w-5 -translate-y-2/4 cursor-pointer rounded-full border border-violet-gray-100 bg-white shadow-md transition-all duration-300 before:absolute before:top-2/4 before:left-2/4 before:block before:h-10 before:w-10 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-violet-gray-500 before:opacity-0 before:transition-opacity hover:before:opacity-10 peer-checked:translate-x-full peer-checked:border-violet-500 peer-checked:before:bg-violet-500">
+                <div className="inline-block p-5 rounded-full top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4"
+                  data-ripple-dark="true"></div>
+              </label>
+            </div>
+          </div>
+          <Label>Search by Image</Label>
         </div>
         {ready !== null && (
         <pre className="p-2 bg-black rounded">
             {
-            (!ready || !result) ? 'Loading...' : JSON.stringify(result, null, 2)}
+            (!ready || !result) ? `Loading ${searchType} model...` : JSON.stringify(result, null, 2)}
         </pre>
         )}
     </div>
