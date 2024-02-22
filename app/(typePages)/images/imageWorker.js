@@ -1,12 +1,14 @@
 import { env, AutoProcessor, RawImage, CLIPVisionModelWithProjection } from '@xenova/transformers';
 
+// TODO: Figure out how to normalize the image embeddings
+
 // Specify a custom location for models in public folder
 env.localModelPath = "/models";
 
 // // Disable the loading of remote models from the Hugging Face Hub:
 env.allowRemoteModels = false;
 env.allowLocalModels = true;
-env.useBrowserCache = false;
+env.useBrowserCache = true;
 
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 // model should be directory in public/models (and in this case onnx folder is hardcoded)
@@ -44,14 +46,15 @@ self.addEventListener('message', async (event) => {
     self.postMessage({ status: 'ready' });
 
     // Actually perform the feature-extraction
-    console.log(event);
     const image = await RawImage.fromURL(event.data);
     const img_inputs = await processor(image)
     const { image_embeds } = await img_model(img_inputs);
+    // normalize the image embeddings
+
 
     // Send the output back to the main thread
     self.postMessage({
         status: 'complete',
-        output: image_embeds.tolist(),
+        output: image_embeds.normalize(2, -1).tolist(),
     });
 });

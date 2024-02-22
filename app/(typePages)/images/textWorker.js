@@ -6,12 +6,12 @@ env.localModelPath = "/models";
 // // Disable the loading of remote models from the Hugging Face Hub:
 env.allowRemoteModels = false;
 env.allowLocalModels = true;
-env.useBrowserCache = false;
+env.useBrowserCache = true;
 
 // Use the Singleton pattern to enable lazy construction of the pipeline.
 // model should be directory in public/models (and in this case onnx folder is hardcoded)
 class PipelineSingleton {
-    static model_id = 'clip-vit-base-patch32';
+    static model_id = 'clip-vit-base-patch16';
     static tokenizer = null;
     static text_model = null;
 
@@ -51,7 +51,7 @@ self.addEventListener('message', async (event) => {
 
     const { text_embeds } = await text_model(text_inputs, { normalize: true });
     // let output = await embedder(event.data.text, { pooling: 'mean', normalize: true });
-    console.log(text_embeds.tolist());
+    // console.log(text_embeds.tolist());
 
     // Send the output back to the main thread
     self.postMessage({
