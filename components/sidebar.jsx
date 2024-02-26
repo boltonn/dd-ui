@@ -36,11 +36,11 @@ export default function Sidebar() {
     }
 
     return sidebarItems?.length ? (
-        <div className={`relative duration-300 h-screen border-r border-r-white ${isOpen ? "w-64" : "w-20"} border-r-violet-100`}>
+        <div className={`relative duration-300 h-screen border-r border-r-violet-700 ${isOpen ? "w-64" : "w-20"} border-r-violet-100`}>
             <HiChevronDoubleLeft
                 onClick={toggleSidebar} 
                 size={24}
-                className={`absolute mt-2 cursor-pointer rounded-full -right-[12px] dark:bg-slate-900 bg-white ${isOpen ? "rotate-180" : ""}`}
+                className={`absolute mt-2 cursor-pointer rounded-full -right-[12px] dark:bg-black bg-white ${isOpen ? "rotate-180" : ""}`}
             />
             <div className="flex flex-col items-center justify-center pt-6">
                 {sidebarItems.map((item, index) => (
@@ -49,8 +49,8 @@ export default function Sidebar() {
                         href={item.href}
                         className={`group flex items-center w-full h-12 ${pathname === item.href ? "bg-muted" : ""}`}
                     >
-                        <item.icon size={24} className="ml-7 dark:text-white group-hover:text-violet-300" />
-                        {isOpen ? <span className="ml-2 dark:text-white group-hover:text-violet-300">{item.label}</span> : null}
+                        <item.icon size={24} className="ml-7 dark:text-white group-hover:text-violet-500" />
+                        {isOpen ? <span className="ml-2 dark:text-white group-hover:text-violet-500">{item.label}</span> : null}
                     </Link>
                 ))}
             </div>

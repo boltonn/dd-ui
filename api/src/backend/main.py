@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Data Distillery API",
+    title="Valence API",
     version=service_info.version,
     description=service_info.description,
     lifespan=lifespan,

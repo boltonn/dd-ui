@@ -6,7 +6,7 @@ import Sidebar from "@/components/sidebar"
 
 
 export const metadata = {
-  title: 'Data Distillery',
+  title: 'Valence',
   description: 'Unstructured content triage with AI/ML',
 }
 
@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
         <head />
         <body>
             <Providers>
-              <main className="flex flex-col items-center justify-between h-full">
+              <main className="flex flex-col items-center justify-between h-full dark:bg-black">
                 <Header />
                 <div className="flex w-full h-auto my-1">
                   <Sidebar />

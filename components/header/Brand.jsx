@@ -14,7 +14,7 @@ export default function Brand() {
                     priority
                     style={{ width: 'auto', height: 'auto' }}
                 />
-                <h1 className="pl-3 text-lg font-bold proxima-nova">Data Distillery</h1>
+                <h1 className="pl-3 text-lg font-bold inter-var">Valence</h1>
             </div>
         </Link>
     )
