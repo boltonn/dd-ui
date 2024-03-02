@@ -20,6 +20,7 @@ from backend.utils.exceptions import python_exception_handler, validation_except
 from backend.utils.logging import logger
 from backend.utils.middleware import log_middleware
 
+logger.info(settings)
 
 state = {}
 

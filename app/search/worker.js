@@ -13,7 +13,7 @@ env.useBrowserCache = false;
 // model should be directory in public/models (and in this case onnx folder is hardcoded)
 class PipelineSingleton {
     static task = 'feature-extraction';
-    static model = 'bge-m3';
+    static model = 'multilingual-e5-small';
     static instance = null;
 
     static async getInstance(progress_callback = null) {
@@ -36,8 +36,8 @@ self.addEventListener('message', async (event) => {
     });
 
     // Actually perform the feature-extraction
-    let output = await embedder(event.data.text, { pooling: 'cls', normalize: true });
-    // console.log(output.tolist()[0].length);
+    let query = `query: ${event.data.text}`
+    let output = await embedder(query, { pooling: 'cls', normalize: true });
 
     // Send the output back to the main thread
     self.postMessage({

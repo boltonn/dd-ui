@@ -14,11 +14,8 @@ class DatabaseContextManager:
         try:
             client = Elasticsearch(
                 f"https://{settings.elasticsearch.host}:{settings.elasticsearch.port}",
-                http_auth=(settings.elasticsearch.username, settings.elasticsearch.password or getpass()),
-                use_ssl=settings.elasticsearch.ca_cert is not None,
-                ssl_show_warn=False,
-                ca_certs=settings.elasticsearch.ca_cert,
-                verify_certs=False,
+                basic_auth=(settings.elasticsearch.username, settings.elasticsearch.password or getpass()),
+                ca_certs=str(settings.elasticsearch.ca_cert),
             )
             assert client.ping()
         except Exception as e:
