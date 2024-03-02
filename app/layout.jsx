@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
             <Providers>
               <main className="flex flex-col items-center justify-between h-full dark:bg-black">
                 <Header />
-                <div className="flex w-full h-auto my-1">
+                <div className="flex w-full h-auto">
                   <Sidebar />
                   {children}
                 </div>

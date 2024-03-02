@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Optional
 
 from pydantic import BaseModel, Field
@@ -6,24 +7,19 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class ElasticsearchConfig(BaseModel):
     host: str = Field(
-        "0.0.0.0",
-        validation_alias="ELASTICSEARCH__HOST",
+        "localhost",
         description="Elasticsearch host for attaching to the logical cluster",
     )
-    port: int = Field(9200, validation_alias="ELASTICSEARCH__PORT", description="Elasticsearch port")
-    crt: str = Field(
+    port: int = Field(9200, description="Elasticsearch port")
+    ca_cert: Path = Field(
         None,
-        validation_alias="ELASTICSEARCH__CA_CERT",
         description="Elasticsearch CA certificate",
     )
-    user: str = Field("elastic", validation_alias="ELASTICSEARCH_USERNAME", description="Elasticsearch username")
-    pwd: str = Field(
-        "elastic",
-        validation_alias="ELASTICSEARCH__PASSWORD",
+    username: str = Field(..., description="Elasticsearch username")
+    password: str = Field(
+        ...,
         description="Elasticsearch password",
     )
-
-
 
 
 class Settings(BaseSettings):
@@ -33,7 +29,7 @@ class Settings(BaseSettings):
     log_file: Optional[str] = Field(None, description="File to write logs to if desired")
     log_level: Optional[str] = Field("INFO", validation_alias="LOG_LEVEL", description="Log level")
     log_json: Optional[bool] = Field(True, description="Log in JSON format")
-    es_config: Optional[ElasticsearchConfig] = Field(None, description="Elasticsearch configuration object")
+    elasticsearch: Optional[ElasticsearchConfig] = Field(None, description="Elasticsearch configuration object")
     model_config = SettingsConfigDict(env_file=".env", env_nested_delimiter="__")
 
 

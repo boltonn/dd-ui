@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.docs import get_swagger_ui_html
@@ -10,6 +10,9 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware
 import uvicorn
 
+from backend.dependencies import get_db
+from backend.internal import admin
+from backend.routers import emails, images
 from backend.settings import settings
 from backend.utils.health import ServiceHealthStatus, service_health
 from backend.utils.info import ServiceInfo, service_info
@@ -33,6 +36,7 @@ app = FastAPI(
     description=service_info.description,
     lifespan=lifespan,
     root_path="/api",
+    dependencies=[Depends(get_db)],
 )
 app.add_middleware(BaseHTTPMiddleware, dispatch=log_middleware)
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
@@ -44,6 +48,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(admin.router)
+app.include_router(emails.router)
+app.include_router(images.router)
+
+
 static_path = Path(__file__).parent/"assets"
 app.mount(f"/{static_path.name}", StaticFiles(directory=static_path), name="static")
 def swagger_redirect(*args, **kwargs):

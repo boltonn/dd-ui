@@ -1,4 +1,4 @@
-from rogue_backend.mappings.fragments import HASH_PROPERTIES, REFERENCE_PROPERTIES, TEXT_PROPERTIES
+from backend.mappings.fragments import HASH_PROPERTIES, REFERENCE_PROPERTIES, TEXT_PROPERTIES
 
 DEFAULT_SETTINGS = {
     "number_of_shards": 1,

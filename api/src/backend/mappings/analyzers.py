@@ -1,3 +1,23 @@
+from enum import StrEnum
+
+class Analyzer(StrEnum):
+    arabic_persian = "arabic_persian"
+    cjk = "cjk"
+    russian_english = "russian_english"
+    spanish_english = "spanish_english"
+
+def get_analyzer(analyzer: Analyzer) -> dict:
+    if analyzer == Analyzer.arabic_persian:
+        return ARABIC_PERSIAN_ANALYZER
+    elif analyzer == Analyzer.cjk:
+        return CJK_ANALYZER
+    elif analyzer == Analyzer.russian_english:
+        return RUSSIAN_ANALYZER
+    elif analyzer == Analyzer.spanish_english:
+        return SPANISH_ANALYZER
+    else:
+        raise ValueError(f"Invalid analyzer: {analyzer}")
+
 # Description: This file contains the analyzers for the elasticsearch index.
 ARABIC_PERSIAN_ANALYZER = {
     "analysis": {

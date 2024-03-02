@@ -20,6 +20,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest", "httpx", "black", "flake8", "isort"]
+opensearch = ["opensearch-py"]
+elastic = ["elasticsearch"]
 
 # [tool.setuptools.package_data]
 # where = ["src"]

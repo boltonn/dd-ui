@@ -42,20 +42,16 @@ self.addEventListener('message', async (event) => {
     
     // send the output to the main thread
     self.postMessage({ status: 'ready' });
-    // console.log(tokenizer);
-    // console.log(text_model);
 
     // Actually perform the feature-extraction
     const text_inputs = await tokenizer(event.data, { padding: true, truncation:true });
-    // console.log(text_inputs);
 
-    const { text_embeds } = await text_model(text_inputs, { normalize: true });
-    // let output = await embedder(event.data.text, { pooling: 'mean', normalize: true });
-    // console.log(text_embeds.tolist());
+    const { text_embeds } = await text_model(text_inputs);
+
 
     // Send the output back to the main thread
     self.postMessage({
         status: 'complete',
-        output: text_embeds.tolist(),
+        output: text_embeds.normalize(2, -1).tolist(),
     });
 });

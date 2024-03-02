@@ -5,6 +5,9 @@ IMAGE_PROPERTIES = {
     "height": {
         "type": "integer"
     },
+    "location": {
+        "type": "geo_point"
+    },
     "width": {
         "type": "integer"
     },

@@ -36,7 +36,7 @@ export default function Sidebar() {
     }
 
     return sidebarItems?.length ? (
-        <div className={`relative duration-300 h-screen border-r border-r-violet-700 ${isOpen ? "w-64" : "w-20"} border-r-violet-100`}>
+        <div className={`relative duration-300 h-screen bg-violet-950 bg-opacity-10 shadow-md border-r mb-3 border-r-violet-700 ${isOpen ? "w-64" : "w-20"} border-r-violet-100`}>
             <HiChevronDoubleLeft
                 onClick={toggleSidebar} 
                 size={24}
