@@ -3,8 +3,8 @@ from typing import Optional
 
 from pydantic import ConfigDict, Field
 
-from dd_pyparse.schemas.base import Base
-from dd_pyparse.schemas.enums import Direction, MessageState
+from backend.schemas.base import Base
+from backend.schemas.enums import Direction, MessageState
 
 
 class Message(Base):

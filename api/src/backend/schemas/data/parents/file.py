@@ -4,8 +4,8 @@ from typing import Optional
 
 from pydantic import Field
 
-from dd_pyparse.schemas.base import Base
-from dd_pyparse.schemas.enums import FileType
+from backend.schemas.base import Base
+from backend.schemas.enums import FileType
 
 
 class File(Base):

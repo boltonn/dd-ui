@@ -22,7 +22,7 @@ class DatabaseContextManager:
             )
             assert client.ping()
         except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Failed to connect to OpenSearch")
+            raise HTTPException(status_code=500, detail=f"Failed to connect to Elasticsearch")
         
         self.db = client
 

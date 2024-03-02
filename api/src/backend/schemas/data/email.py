@@ -2,9 +2,9 @@ from typing import Literal, Optional
 
 from pydantic import Field, field_validator
 
-from dd_pyparse.schemas.data.parents.file import File
-from dd_pyparse.schemas.data.parents.message import Message
-from dd_pyparse.schemas.enums import DataType
+from backend.schemas.data.parents.file import File
+from backend.schemas.data.parents.message import Message
+from backend.schemas.enums import DataType
 
 
 class Email(File, Message):

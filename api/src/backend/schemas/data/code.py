@@ -2,8 +2,8 @@ from typing import Literal, Optional
 
 from pydantic import ConfigDict, Field, computed_field
 
-from dd_pyparse.schemas.data.parents.file import File
-from dd_pyparse.schemas.enums import DataType, CodingScript
+from backend.schemas.data.parents.file import File
+from backend.schemas.enums import DataType, CodingScript
 
 
 def map_language(mime_type: str) -> CodingScript:

@@ -2,8 +2,8 @@ from typing import Literal
 
 from pydantic import Field
 
-from dd_pyparse.schemas.data.parents.message import Message
-from dd_pyparse.schemas.enums import DataType
+from backend.schemas.data.parents.message import Message
+from backend.schemas.enums import DataType
 
 
 class ChatMessage(Message):

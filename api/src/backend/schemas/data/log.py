@@ -2,8 +2,8 @@ from typing import Literal, Optional
 
 from pydantic import Field
 
-from dd_pyparse.schemas.data.parents.file import File
-from dd_pyparse.schemas.enums import DataType
+from backend.schemas.data.parents.file import File
+from backend.schemas.enums import DataType
 
 
 class Log(File):

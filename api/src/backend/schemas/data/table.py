@@ -2,9 +2,9 @@ from typing import Literal, Optional
 
 from pydantic import ConfigDict, Field
 
-from dd_pyparse.schemas.base import Base
-from dd_pyparse.schemas.data.parents.file import File
-from dd_pyparse.schemas.enums import DataType
+from backend.schemas.base import Base
+from backend.schemas.data.parents.file import File
+from backend.schemas.enums import DataType
 
 
 class Table(File):

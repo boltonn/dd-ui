@@ -3,8 +3,8 @@ from typing import Literal, Optional
 
 from pydantic import ConfigDict, Field, confloat, field_validator
 
-from dd_pyparse.schemas.base import Base
-from dd_pyparse.schemas.enums import (AddressType, DataType, GeoContext,
+from backend.schemas.base import Base
+from backend.schemas.enums import (AddressType, DataType, GeoContext,
                                       LocationSourceType)
 
 

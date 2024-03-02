@@ -7,9 +7,9 @@ from uuid import uuid4
 from pydantic import (BaseModel, ConfigDict, Field, FieldValidationInfo,
                       constr, field_validator)
 
-from dd_pyparse.schemas.annotations.base import Annotation
-from dd_pyparse.schemas.enums import DataType, Iso639_3
-from dd_pyparse.schemas.fragments import Hash, Reference, Text
+from backend.schemas.annotations.base import Annotation
+from backend.schemas.enums import DataType, Iso639_3
+from backend.schemas.fragments import Hash, Reference, Text
 
 
 class Base(BaseModel):
