@@ -2,6 +2,8 @@
 import React, { useRef } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
+import Apps from "@/components/about/apps";
+
 
 export const StickyScroll = ({
   content,
@@ -75,11 +77,11 @@ export const StickyScroll = ({
         animate={{
           background: linearGradients[activeCard % linearGradients.length],
         }}
-        className="sticky hidden h-auto overflow-hidden bg-white rounded-md lg:block w-80 top-10"
+        className="sticky hidden h-auto overflow-hidden bg-white rounded-md lg:block w-100 top-10"
       >
-        {/* items description */}
-        <p className="p-4 text-black text-kg">{content[activeCard].description}</p>
-        
+        <div className="flex">
+          <Apps collabApps={content[activeCard].apps} />
+        </div>       
       </motion.div>
     </motion.div>
   );

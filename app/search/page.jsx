@@ -56,7 +56,7 @@ export default function MainSearchPage() {
   return (
     <div className='flex flex-col items-center w-full mt-1'>
         <Navbar />
-        <div className='w-3/4 max-w-3xl p-2 px-3 py-2 m-2 mt-3 '>
+        <div className='w-3/4 max-w-3xl p-2 px-3 py-2 mt-6'>
           <SearchBar search={embed} />
         </div>
         {ready !== null && (
