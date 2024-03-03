@@ -26,7 +26,10 @@ const content = [
 	{
 		title: "Community Driven Development",
 		description:
-			"Valence is an open project, allowing for community contributions and a more transparent development process. We believe that public repositories and non-monolithic applications are key to continual improvement and innovation. We are in a period where Open Source rules technological innovation and provides a baseline in the absence of thorough evaluation processes.",
+			`Valence is an open project, allowing for community contributions and a more transparent development 
+			process. We believe that public repositories and non-monolithic applications are key to continual 
+			improvement and innovation. We are in a period where Open Source rules technological innovation and 
+			provides a baseline in the absence of thorough evaluation processes.`,
 		apps: apps
 	},
 	{
@@ -42,24 +45,23 @@ const content = [
 
 export default function AboutPage({ children }) {
 	const { theme } = useTheme();
-	
-	// re-render the page with the new theme
-	useEffect(() => {
-		console.log("theme changed to: ", theme);
-	}, [theme]);
 
 	return (
-		// white if not dark mode for backgroundFill
-		<WavyBackground className="h-screen max-w-4xl pb-40 mx-auto" backgroundFill={theme === "dark" ? "black" : "white"}>
-			<p className="mt-10 text-2xl font-bold text-center text-white md:text-4xl lg:text-7xl inter-var">
+		<div className="h-screen max-w-4xl">
+			<p className="mt-10 text-2xl font-bold text-center dark:text-white md:text-4xl lg:text-7xl inter-var">
 				Valence
 			</p>
 			<p className="text-base font-bold text-center text-white text-bold md:text-lg inter-var">
 				Unstructured Data Triage with AI/ML
 			</p>
+			<WavyBackground 
+				containerClassName="mt-3" 
+				backgroundFill="black" 
+				canvasHeight={250}
+			/>
 			<StickyScroll content={content} />
 			{children}
-		</WavyBackground>
+		</div>
 	);
 }
 

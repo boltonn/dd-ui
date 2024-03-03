@@ -10,6 +10,7 @@ export const WavyBackground = ({
   colors,
   waveWidth,
   backgroundFill,
+  canvasHeight,
   blur = 10,
   speed = "fast",
   waveOpacity = 0.5,
@@ -39,12 +40,12 @@ export const WavyBackground = ({
     canvas = canvasRef.current;
     ctx = canvas.getContext("2d");
     w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
+    h = ctx.canvas.height = canvasHeight || window.innerHeight;
     ctx.filter = `blur(${blur}px)`;
     nt = 0;
     window.onresize = function () {
       w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
+      h = ctx.canvas.height = canvasHeight || window.innerHeight;
       ctx.filter = `blur(${blur}px)`;
     };
     render();
