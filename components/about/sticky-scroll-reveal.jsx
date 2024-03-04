@@ -25,9 +25,9 @@ export const StickyScroll = ({
     });
   });
   const backgroundColors = [
-    "var(--transparent)",
-    "var(--transparent)",
-    "var(--transparent)",
+    "var(--black)",
+    "var(--black)",
+    "var(--black)",
   ];
   const linearGradients = [
     "linear-gradient(to bottom right, #38bdf8, #e879f9)",

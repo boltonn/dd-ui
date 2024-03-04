@@ -5,10 +5,8 @@ import { StickyScroll } from "@/components/about/sticky-scroll-reveal";
 import { techStackApps } from "@/components/about/const/techStackApps";
 import { autoScalingApps } from "@/components/about/const/autoScalingApps";
 import { useTheme } from "next-themes";
-import { useEffect } from "react";
 
 const apps = [];
-
 
 
 const content = [
@@ -47,7 +45,7 @@ export default function AboutPage({ children }) {
 	const { theme } = useTheme();
 
 	return (
-		<div className="h-screen max-w-4xl">
+		<div className="h-screen max-w-4xl align-middle">
 			<p className="mt-10 text-2xl font-bold text-center dark:text-white md:text-4xl lg:text-7xl inter-var">
 				Valence
 			</p>
@@ -57,7 +55,7 @@ export default function AboutPage({ children }) {
 			<WavyBackground 
 				containerClassName="mt-3" 
 				backgroundFill="black" 
-				canvasHeight={250}
+				canvasHeight={280}
 			/>
 			<StickyScroll content={content} />
 			{children}
