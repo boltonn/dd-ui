@@ -20,14 +20,15 @@ HASH_PROPERTIES = {
 
 REFERENCE_PROPERTIES = {
     "references": {
-        "index": False,
         "type": "object",
         "properties": {
             "name": {
-                "type": "keyword"
+                "type": "keyword",
+                "index": False,
             },
             "url": {
-                "type": "keyword"
+                "type": "keyword",
+                "index": False,
             },
         }
     }
@@ -37,12 +38,12 @@ TEXT_PROPERTIES = {
     "text": {
         "properties": {
             "source": {
-                "type": "keyword",
-                "analyser": "standard"
+                "type": "text",
+                "analyzer": "standard"
             },
             "translated": {
-                "type": "keyword",
-                "analyser": "standard"
+                "type": "text",
+                "analyzer": "standard"
             }
         }
     },

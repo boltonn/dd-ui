@@ -1,14 +1,20 @@
 
 EMAIL_PROPERTIES = {
-    "subject": {
-        "type": "text",
-        "analyzer": "standard"
-    },
-    "header": {
-        "type": "object"
+    "embedding": {
+        "properties": {
+            "text": {
+                "type": "dense_vector",
+                "dims": 384,
+                "similarity": "dot_product"
+            },
+        }
     },
     "has_attachments": {
         "type": "boolean"
+    },
+    "header": {
+        "type": "object",
+        "dynamic": True
     },
     "is_archived": {
         "type": "boolean"
@@ -33,5 +39,9 @@ EMAIL_PROPERTIES = {
     },
     "is_spam": {
         "type": "boolean"
+    },
+     "subject": {
+        "type": "text",
+        "analyzer": "standard"
     }
 }

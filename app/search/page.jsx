@@ -33,7 +33,6 @@ export default function MainSearchPage() {
           setReady(true);
           break;
         case 'complete':
-          console.log(e.data.outputs)
           setResult(e.data.output[0])
           break;
       }

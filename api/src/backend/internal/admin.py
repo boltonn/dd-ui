@@ -62,12 +62,13 @@ def create_index(
         }
     }
 
-    db.indices.create(index=dataset.index_name, ignore=400)
     index_name = "-".join([x for x in [dataset.index_prefix, dataset.index_name, dataset.index_suffix] if x is not None])
+
     if dataset.by_type:
         for data_type in dataset.data_types:
-            body["mappings"] = get_mappings(data_type)
-            db.indices.create(index=f"{index_name}-{data_type}", body=body, ignore=400)
+            body["mappings"] = get_mappings(data_type, analyzer=dataset.analyzer)
+            index_name = index_name.replace(dataset.index_suffix, f"{data_type}-{dataset.index_suffix}") if dataset.index_suffix else f"{index_name}-{data_type}"
+            db.indices.create(index_name, body=body, ignore=400)
     else:
-        body["mappings"] = get_mappings()
+        body["mappings"] = get_mappings(analyzer=dataset.analyzer)
         db.indices.create(index=index_name, body=body, ignore=400)

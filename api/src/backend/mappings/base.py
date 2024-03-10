@@ -7,7 +7,7 @@ DEFAULT_SETTINGS = {
 
 BASE_MAPPING = {
     "dynamic": "strict",
-    "dynamic_date_formats": ["strict_date_optional_time", "epoch_millis"],
+    "dynamic_date_formats": "strict_date_optional_time",
     "properties": {
         "dataset": {
             "type": "keyword"

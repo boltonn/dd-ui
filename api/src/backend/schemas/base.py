@@ -16,7 +16,6 @@ class Base(BaseModel):
     """Generic data object"""
 
     additional: Optional[dict[str, Any]] = Field(None, description="Additional metadata about the data")
-    annotations: Optional[list[Annotation]] = Field(None, description="Annotations about the data")
     dataset: Optional[constr(to_upper=True, strip_whitespace=True, strict=True)] = Field(None, description="Dataset name")
     data_type: Optional[DataType] = Field(None, example=DataType.image, description="Data type")
     date_ingested: Optional[datetime] = Field(

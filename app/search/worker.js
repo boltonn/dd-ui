@@ -19,7 +19,7 @@ class PipelineSingleton {
     static async getInstance(progress_callback = null) {
         if (this.instance === null) {
             console.log(this.model);
-            this.instance = pipeline(this.task, this.model, { progress_callback, quantized:true }, );
+            this.instance = pipeline(this.task, this.model, { progress_callback, quantized:false }, );
         }
         return this.instance;
     }
@@ -37,7 +37,8 @@ self.addEventListener('message', async (event) => {
 
     // Actually perform the feature-extraction
     let query = `query: ${event.data.text}`
-    let output = await embedder(query, { pooling: 'cls', normalize: true });
+    let output = await embedder(query, { pooling: 'mean', normalize: true });
+    console.log(output.tolist());
 
     // Send the output back to the main thread
     self.postMessage({
