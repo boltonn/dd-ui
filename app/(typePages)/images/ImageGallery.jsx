@@ -1,10 +1,10 @@
 import { useCallback, Fragment } from "react";
+import Image from 'next/image';
 import { useInfiniteQuery } from "@tanstack/react-query";
 import useDatasetStore from "@/store/datasets";
 
 export default function ImageGallery({ embedding, setEmbedding }) {
     const { datasets } = useDatasetStore();
-    console.log(datasets);
 
     // Fetch Images with embedding and dataset via a post request
     const fetchImages = useCallback(
@@ -39,22 +39,21 @@ export default function ImageGallery({ embedding, setEmbedding }) {
 
 
     if (isFetching || !embedding) return "Loading...";
-
-
-
+    if (!data) return "No data";
     return (
-        <div className="container px-5 py-2 mx-auto lg:px-32 lg:pt-12">
-            {console.log(data)}
-            <div className="flex flex-wrap -m-1 md:-m-2">
+        <div className="pt-3">
+            {/* {console.log(data)} */}
+            <div className="flex flex-wrap items-center justify-center -m-1 md:-m-2">
                 {data.pages.map((page, i) => (
                     <Fragment key={i}>
                         {page.map((image) => (
-                            <div key={image.id} className="p-1 md:p-2">
-                                {/* enable local file refernce on the server */}
-                                <img
-                                    src={`file://${image.absolute_path}`}
+                            <div key={image.id} className="relative w-32 h-32 p-1 m-2 md:h-48 md:w-48 lg:h-64 lg:w-64 md:p-2">
+                                <Image
+                                    src={image.absolute_path}
                                     alt={image.id}
-                                    className="object-cover w-full h-full rounded-lg"
+                                    fill
+                                    sizes="100%"
+                                    className="object-cover w-full h-full rounded-sm"
                                 />
                             </div>
                         ))}

@@ -29,7 +29,7 @@ async def read_images(
     }
 
     response = db.search(index=datasets, knn=knn)
-
-    logger.debug(response)
-    return [{"id": image["_id"], **image["_source"]} for image in response['hits']['hits']]
-    # return {"Images!": "This is a list of images."}
+    images = [{"id": image["_id"], **image["_source"]} for image in response['hits']['hits']]
+    for image in images:
+        image['absolute_path'] = image['absolute_path'].replace("/home/boltonn/data/test", "/media")
+    return images
