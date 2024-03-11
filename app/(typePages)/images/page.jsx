@@ -1,10 +1,9 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { SearchBar } from '@/components/searchbar';
-import { Button } from '@/components/ui/button';
 import ImageUploader from './ImageUploader';
 import ImageGallery from './ImageGallery';
-import FileProgress from './FileProgess';
+import Progress from './Progess';
 
 
 export default function ImageSearchPage() {
@@ -64,10 +63,6 @@ export default function ImageSearchPage() {
           setReady(true);
           break;
 
-        // case 'running':
-        //   setIsRunning(true);
-        //   break;
-
         case 'complete':
           setEmbedding(e.data.output[0])
           break;
@@ -86,7 +81,7 @@ export default function ImageSearchPage() {
     if (worker.current) {
       worker.current.postMessage(data);
     }
-  }, []);
+  }, [embedding]);
 
 
   return (
@@ -117,14 +112,14 @@ export default function ImageSearchPage() {
         {
           ready
           ? (
-            !embedding 
+            !embedding
             ? "Running inference..."
             : <ImageGallery key={embedding} embedding={embedding} setEmbedding={setEmbedding} />
           ) : (
             <div className='w-full'>
               {progressItems.map((data, i) => (
-                <FileProgress 
-                  className='w-1/2'
+                <Progress 
+                  className='w-1/2 my-1'
                   key={i} 
                   progress={data.progress} 
                   text={data.file} 
