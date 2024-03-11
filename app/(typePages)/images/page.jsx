@@ -1,17 +1,20 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, Fragment } from 'react'
 import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
 import { SearchBar } from '@/components/searchbar';
 import ImageUploader from './ImageUploader';
+import ImageGallery from './ImageGallery';
+import DownloadFileProgress from './DownloadFileProgress';
 
 
-export default function MainSearchPage() {
+export default function ImageSearchPage() {
 
   // Keep track of the classification result and the model loading status.
-  const [result, setResult] = useState(null);
+  const [embedding, setEmbedding] = useState(null);
   const [ready, setReady] = useState(null);
   const [searchType, setSearchType] = useState('image');
+  const [progressItems, setProgressItems] = useState([]);
+  const [isRunning, setIsRunning] = useState(false);
 
   // Create a reference to the worker object.
   const worker = useRef(null);
@@ -35,12 +38,38 @@ export default function MainSearchPage() {
       switch (e.data.status) {
         case 'initiate':
           setReady(false);
+          setProgressItems(prev => [...prev, e.data]);
           break;
+        
+        case 'progress':
+          // Model file progress: update one of the progress items.
+          setProgressItems(
+            prev => prev.map(item => {
+              if (item.file === e.data.file) {
+                return { ...item, progress: e.data.progress }
+              }
+              return item;
+            })
+          );
+        break;
+
+        case 'done':
+        // Model file loaded: remove the progress item from the list.
+        setProgressItems(
+          prev => prev.filter(item => item.file !== e.data.file)
+        );
+        break;
+
         case 'ready':
           setReady(true);
           break;
+
+        // case 'running':
+        //   setIsRunning(true);
+        //   break;
+
         case 'complete':
-          setResult(e.data.output[0])
+          setEmbedding(e.data.output[0])
           break;
       }
     };
@@ -87,12 +116,20 @@ export default function MainSearchPage() {
           </div>
           <Label>Search by Image</Label>
         </div>
-        {ready !== null && (
-        <pre className="p-2 bg-black rounded">
-            {
-            (!ready || !result) ? `Loading ${searchType} model...` : JSON.stringify(result, null, 2)}
-        </pre>
-        )}
+        {
+          ready 
+          ? (
+            !embedding 
+            ? "Running inference..."
+            : <ImageGallery embedding={embedding} setEmbedding={setEmbedding} />
+          ) : (
+            <Fragment>
+              {progressItems.map((data, i) => (
+                <DownloadFileProgress key={i} value={data.progress} text={data.file} />
+              ))}
+            </Fragment>
+          )
+        }
     </div>
   )
 }

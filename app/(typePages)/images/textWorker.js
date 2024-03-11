@@ -44,10 +44,9 @@ self.addEventListener('message', async (event) => {
     self.postMessage({ status: 'ready' });
 
     // Actually perform the feature-extraction
+    // self.postMessage({ status: 'running' });
     const text_inputs = await tokenizer(event.data, { padding: true, truncation:true });
-
     const { text_embeds } = await text_model(text_inputs);
-
 
     // Send the output back to the main thread
     self.postMessage({

@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 
 const useDatasetStore = create((set) => ({
-    datasets: [],
+    datasets: ["test"],
     addDataset: (dataset) =>
         set((state) => ({
             datasets: [
