@@ -2,15 +2,6 @@ DOCUMENT_PROPERTIES = {
     "created_by": {
         "type": "keyword"
     },
-    "embedding": {
-        "properties": {
-            "text": {
-                "type": "dense_vector",
-                "dims": 384,
-                "similarity": "dot_product"
-            },
-        }
-    },
     "modified_by": {
         "type": "keyword"
     },

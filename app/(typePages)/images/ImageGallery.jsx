@@ -17,6 +17,7 @@ export default function ImageGallery({ embedding, setEmbedding }) {
                 body: JSON.stringify({
                     embedding,
                     datasets: datasets,
+                    // k: 12,
                     // page: pageParam,
                 }),
             });

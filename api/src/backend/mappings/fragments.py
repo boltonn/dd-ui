@@ -51,3 +51,32 @@ TEXT_PROPERTIES = {
         "type": "keyword"
     }
 }
+
+IMAGE_EMBEDDING_PROPERTIES = {
+    "image": {
+        "type": "dense_vector",
+        "dims": 512,
+        "similarity": "dot_product"
+    }
+}
+
+TEXT_EMBEDDING_PROPERTIES = {
+    "text": {
+        "type": "dense_vector",
+        "dims": 384,
+        "similarity": "dot_product"
+    }
+}
+
+TEXT_CHUNKED_EMBEDDING_PROPERTIES = {
+    "text": {
+        "type": "nested",
+        "properties": {
+            "chunk": {
+                "type": "dense_vector",
+                "dims": 384,
+                "similarity": "dot_product"
+            }
+        }
+    }
+}

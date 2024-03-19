@@ -1,14 +1,5 @@
 
 EMAIL_PROPERTIES = {
-    "embedding": {
-        "properties": {
-            "text": {
-                "type": "dense_vector",
-                "dims": 384,
-                "similarity": "dot_product"
-            },
-        }
-    },
     "has_attachments": {
         "type": "boolean"
     },
