@@ -16,7 +16,7 @@ import { FaPassport } from "react-icons/fa6";
 
 const colors = [
     "bg-violet-500",
-    "bg-fucshia-300",
+    "bg-pink-300",
     "bg-cyan-300",
     "bg-yellow-300",
     "bg-green-300",
